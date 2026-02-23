@@ -1,0 +1,28 @@
+import React from "react";
+import { Input, Button } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
+import "./../styles/FaqHeader.css";
+
+function FaqSection() {
+  return (
+    <div className="faq-container">
+      <h1 className="faq-title">Ko'p Beriladigan Savollar</h1>
+      <p className="faq-subtitle">
+        Savolingiz bormi? Biz yordam berishga tayyormiz.
+      </p>
+      <div className="faq-search">
+        <div className="search-input-wrapper">
+          <SearchOutlined className="search-icon" />
+          <input
+            type="text"
+            placeholder="Savolingizni kiriting..."
+            className="faq-input"
+          />
+          <button className="faq-button">Qidirish</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default FaqSection;
