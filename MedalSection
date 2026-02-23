@@ -1,0 +1,77 @@
+import React, { useState } from "react";
+import { Collapse } from "antd";
+import { DownOutlined, UpOutlined } from "@ant-design/icons";
+import "./../styles/MedalsSection.css";
+
+const { Panel } = Collapse;
+
+function MedalsSection() {
+  // activeKey ni array qilamiz, chunki Collapse activeKey ni array sifatida kutadi
+  const [activeKey, setActiveKey] = useState([]);
+
+  const medals = [
+    { 
+      title: "Olimpiadada qatnashish bepulmi?", 
+      content: "Ha, ko'plab davlat olimpiadalari bepul hisoblanadi. Xususiy olimpiadalar uchun belgilangan to'lovlar platformada ko'rsatilgan." 
+    },
+    { 
+      title: "Ro'yxatdan qanday o'tish mumkin?", 
+      content: "Platformaning yuqori qismidagi 'Kirish' tugmasini bosing, so'ngra 'Ro'yxatdan o'tish' bo'limini tanlang. Shaxsiy ma'lumotlaringizni va telefon raqamingizni kiriting. Tasdiqlash kodi kelgandan so'ng hisobingiz faollashadi." 
+    },
+    { 
+      title: "Parolimni esdan chiqardim, nima qilishim kerak?", 
+      content: "Kirish sahifasida 'Parolni unutdingizmi?' tugmasini bosing. Elektron pochtangiz yoki telefon raqamingizni kiriting va sizga parolni tiklash uchun yo'riqnoma yuboriladi." 
+    },
+    { 
+      title: "Olimpiadalar qachon bo'lib o'tadi?", 
+      content: "Olimpiadalar har yili ma'lum davrlarda o'tkaziladi. Platformamizda har bir olimpiada uchun aniq sanalar va vaqtlar ko'rsatilgan. Taqvim bo'limidan barcha rejalashtirilgan olimpiadalarni ko'rishingiz mumkin." 
+    },
+    { 
+      title: "Olimpiadada qanday tayyorgarlik ko'rish kerak?", 
+      content: "Har bir olimpiada uchun maxsus tayyorgarlik materiallari mavjud. Platformamizda o'quv qo'llanmalar, misol masalalar va testlar mavjud. Shuningdek, o'tgan yillarda bo'lgan masalalar bilan tanishishni tavsiya qilamiz." 
+    },
+  ];
+
+  const handleChange = (key) => {
+    // key array bo'ladi, shuning uchun birinchi elementni olamiz yoki bo'sh array
+    console.log("Key changed:", key);
+    setActiveKey(key);
+  };
+
+  return (
+    <div className="medals-section-container">
+      <Collapse
+        accordion
+        ghost={false} // ghost ni false qilamiz
+        onChange={handleChange}
+        activeKey={activeKey} // activeKey ni explicitly beramiz
+        expandIcon={() => null}
+        className="medals-ant-collapse"
+      >
+        {medals.map((medal, index) => {
+          // Index string formatda bo'lishi kerak
+          const panelKey = String(index);
+          const isActive = activeKey.includes(panelKey);
+          
+          return (
+            <Panel
+              key={panelKey}
+              header={
+                <div className={`medals-panel-header ${isActive ? 'medals-panel-header-active' : ''}`}>
+                  <h3 className="medals-panel-title">{medal.title}</h3>
+                  <span className="medals-panel-icon">
+                    {isActive ? <UpOutlined /> : <DownOutlined />}
+                  </span>
+                </div>
+              }
+            >
+              {medal.content}
+            </Panel>
+          );
+        })}
+      </Collapse>
+    </div>
+  );
+}
+
+export default MedalsSection;
